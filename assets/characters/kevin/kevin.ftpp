@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "version": "0.6.7"
+  },
+  "savePath": "",
+  "images": [
+    {
+      "name": "down-idle-0.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-idle-0.png",
+      "folder": ""
+    },
+    {
+      "name": "down-idle-1.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-idle-1.png",
+      "folder": ""
+    },
+    {
+      "name": "down-idle-2.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-idle-2.png",
+      "folder": ""
+    },
+    {
+      "name": "down-idle-3.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-idle-3.png",
+      "folder": ""
+    },
+    {
+      "name": "down-idle-4.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-idle-4.png",
+      "folder": ""
+    },
+    {
+      "name": "down-walk-0.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-walk-0.png",
+      "folder": ""
+    },
+    {
+      "name": "down-walk-1.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-walk-1.png",
+      "folder": ""
+    },
+    {
+      "name": "down-walk-2.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-walk-2.png",
+      "folder": ""
+    },
+    {
+      "name": "down-walk-3.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-walk-3.png",
+      "folder": ""
+    },
+    {
+      "name": "down-walk-4.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-walk-4.png",
+      "folder": ""
+    },
+    {
+      "name": "down-walk-5.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/down-walk-5.png",
+      "folder": ""
+    },
+    {
+      "name": "side-idle-0.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-idle-0.png",
+      "folder": ""
+    },
+    {
+      "name": "side-idle-1.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-idle-1.png",
+      "folder": ""
+    },
+    {
+      "name": "side-idle-2.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-idle-2.png",
+      "folder": ""
+    },
+    {
+      "name": "side-idle-3.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-idle-3.png",
+      "folder": ""
+    },
+    {
+      "name": "side-idle-4.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-idle-4.png",
+      "folder": ""
+    },
+    {
+      "name": "side-walk-0.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-walk-0.png",
+      "folder": ""
+    },
+    {
+      "name": "side-walk-1.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-walk-1.png",
+      "folder": ""
+    },
+    {
+      "name": "side-walk-2.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-walk-2.png",
+      "folder": ""
+    },
+    {
+      "name": "side-walk-3.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-walk-3.png",
+      "folder": ""
+    },
+    {
+      "name": "side-walk-4.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-walk-4.png",
+      "folder": ""
+    },
+    {
+      "name": "side-walk-5.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/side-walk-5.png",
+      "folder": ""
+    },
+    {
+      "name": "up-idle-0.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-idle-0.png",
+      "folder": ""
+    },
+    {
+      "name": "up-idle-1.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-idle-1.png",
+      "folder": ""
+    },
+    {
+      "name": "up-idle-2.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-idle-2.png",
+      "folder": ""
+    },
+    {
+      "name": "up-idle-3.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-idle-3.png",
+      "folder": ""
+    },
+    {
+      "name": "up-idle-4.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-idle-4.png",
+      "folder": ""
+    },
+    {
+      "name": "up-walk-0.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-walk-0.png",
+      "folder": ""
+    },
+    {
+      "name": "up-walk-1.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-walk-1.png",
+      "folder": ""
+    },
+    {
+      "name": "up-walk-2.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-walk-2.png",
+      "folder": ""
+    },
+    {
+      "name": "up-walk-3.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-walk-3.png",
+      "folder": ""
+    },
+    {
+      "name": "up-walk-4.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-walk-4.png",
+      "folder": ""
+    },
+    {
+      "name": "up-walk-5.png",
+      "path": "E:/Learning/M1/S2/gamedev/crossy_roads/assets/characters/kevin/up-walk-5.png",
+      "folder": ""
+    }
+  ],
+  "folders": [],
+  "packOptions": {
+    "textureName": "kevin",
+    "textureFormat": "png",
+    "removeFileExtension": false,
+    "prependFolderName": true,
+    "base64Export": false,
+    "tinify": false,
+    "tinifyKey": "",
+    "scale": 1,
+    "filter": "none",
+    "exporter": "JSON (hash)",
+    "fileName": "pack-result",
+    "savePath": "",
+    "width": 2048,
+    "height": 2048,
+    "fixedSize": false,
+    "powerOfTwo": false,
+    "padding": 0,
+    "extrude": 0,
+    "allowRotation": false,
+    "allowTrim": true,
+    "trimMode": "trim",
+    "alphaThreshold": "0",
+    "detectIdentical": false,
+    "packer": "OptimalPacker",
+    "packerMethod": "Automatic"
+  }
+}
