@@ -6,7 +6,7 @@ var config = {
         default: "arcade",
         arcade: {
             gravity: { y: 0 },
-            //debug: true,
+            // debug: true,
         },
     },
     scene: {
@@ -15,15 +15,17 @@ var config = {
         update,
     },
     scale: {
-        width: 516.4,
-        height: 16 * 15,
-        zoom: 2.5,
+        width: 16 * 43,
+        height: 16 * 20,
+        zoom: 2,
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
 };
 
 var game = new Phaser.Game(config);
+
+var scale = 0.6;
 
 function preload() {
     this.load.image("tiles", "assets/tileset/city_tiles.png");
@@ -48,13 +50,16 @@ function create() {
     const tileset = map.addTilesetImage("city", "tiles");
 
     map.createLayer("ground", tileset);
-    const Objects = map.createLayer("Obstacles", tileset);
+    const Obstacles = map.createLayer("Obstacles", tileset);
+    this.kevin = this.physics.add
+        .sprite(20, 20, "kevin", "down-idle-0.png")
+        .setScale(scale);
+    map.createLayer("Objects", tileset);
 
-    Objects.setCollisionByProperty({ collides: true });
+    Obstacles.setCollisionByProperty({ collides: true });
 
-    //debugDraw(Objects, this);
+    // debugDraw(Obstacles, this);
 
-    this.kevin = this.physics.add.sprite(20, 20, "kevin", "down-idle-0.png");
     this.kevin.body.setSize(16, 8);
     this.kevin.body.offset.y = 40;
 
@@ -128,9 +133,9 @@ function create() {
 
     this.kevin.play("kevin-idle-down");
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.physics.add.collider(this.kevin, Objects);
+    this.physics.add.collider(this.kevin, Obstacles);
     // this.cameras.main.startFollow(this.kevin, true);
-
+    this.kevin.setCollideWorldBounds(true);
     var FKey = this.input.keyboard.addKey("F");
 
     FKey.on(
@@ -163,13 +168,13 @@ const moveKevin = (scene) => {
     if (scene.cursors.left?.isDown) {
         scene.kevin.anims.play("kevin-walk-side", true);
         vX = -speed;
-        scene.kevin.scaleX = 1;
+        scene.kevin.scaleX = scale;
         scene.kevin.body.offset.x = 25;
         side = true;
     } else if (scene.cursors.right?.isDown) {
         scene.kevin.anims.play("kevin-walk-side", true);
         vX = speed;
-        scene.kevin.scaleX = -1;
+        scene.kevin.scaleX = -scale;
         scene.kevin.body.offset.x = 41;
         side = true;
     }
@@ -189,6 +194,10 @@ const moveKevin = (scene) => {
             vY *= 3 / 4;
             vX *= 3 / 4;
         }
+    }
+    if (scene.cursors.shift?.isDown) {
+        vX *= 2.5;
+        vY *= 2.5;
     }
     if (vX === 0 && vY === 0) {
         const parts = scene.kevin.anims.currentAnim.key.split("-");
