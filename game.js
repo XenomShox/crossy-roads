@@ -15,10 +15,10 @@ var config = {
         update,
     },
     scale: {
-        width: 16 * 43,
-        height: 16 * 20,
-        zoom: 2,
-        mode: Phaser.Scale.FIT,
+        width: 16 * 50,
+        height: 16 * 30,
+        zoom: 0.5,
+        // mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
 };
@@ -32,7 +32,7 @@ function preload() {
     this.load.image("car1", "assets/Cars/car1.png");
     this.load.image("car2", "assets/Cars/car2.png");
     this.load.image("car3", "assets/Cars/car3.png");
-    this.load.tilemapTiledJSON("city", "assets/maps/city_1.json");
+    this.load.tilemapTiledJSON("city", "assets/maps/city_2.json");
 
     this.load.spritesheet("player", "assets/characters/kavi.png", {
         frameWidth: 32,
@@ -53,9 +53,11 @@ function create() {
     const tileset = map.addTilesetImage("city", "tiles");
 
     map.createLayer("ground", tileset);
-    const Obstacles = map.createLayer("Obstacles", tileset);
-    this.kevin = this.physics.add.sprite(20, 20, "kevin", "down-idle-0.png").setScale(scale);
-    map.createLayer("Objects", tileset);
+    const Obstacles = map.createLayer("colliding", tileset);
+    this.kevin = this.physics.add
+        .sprite(20, 20, "kevin", "down-idle-0.png")
+        .setScale(scale);
+    // map.createLayer("Objects", tileset);
 
     Obstacles.setCollisionByProperty({ collides: true });
 

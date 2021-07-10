@@ -8,7 +8,7 @@ var GameScene = new Phaser.Class({
         this.load.image("car1", "assets/Cars/car1.png");
         this.load.image("car2", "assets/Cars/car2.png");
         this.load.image("car3", "assets/Cars/car3.png");
-        this.load.tilemapTiledJSON("city", "assets/maps/city_1.json");
+        this.load.tilemapTiledJSON("city", "assets/maps/city_2.json");
 
         this.load.spritesheet("player", "assets/characters/kavi.png", {
             frameWidth: 32,
@@ -28,7 +28,7 @@ var GameScene = new Phaser.Class({
         const tileset = map.addTilesetImage("city", "tiles");
 
         map.createLayer("ground", tileset);
-        const Obstacles = map.createLayer("Obstacles", tileset);
+        const Obstacles = map.createLayer("obstacles", tileset);
         //create cars
         let cars = [
             this.CreateCarV(76, 50, 1),
@@ -39,8 +39,10 @@ var GameScene = new Phaser.Class({
         this.cars = this.physics.add.group();
         this.cars.addMultiple(cars);
 
-        this.kevin = this.physics.add.sprite(20, 20, "kevin", "down-idle-0.png").setScale(scale);
-        map.createLayer("Objects", tileset);
+        this.kevin = this.physics.add
+            .sprite(20, 20, "kevin", "down-idle-0.png")
+            .setScale(scale);
+        // map.createLayer("Objects", tileset);
 
         Obstacles.setCollisionByProperty({ collides: true });
 
@@ -210,11 +212,16 @@ var UIScene = new Phaser.Class({
     initialize: function GameScene() {
         Phaser.Scene.call(this, { key: "UIScene", active: true });
         this.Score = 0;
-        this.MaxScore = Number(window.localStorage.getItem("maxCrossRoad") || 0);
+        this.MaxScore = Number(
+            window.localStorage.getItem("maxCrossRoad") || 0
+        );
     },
     preload: function () {},
     create: function () {
-        var info = this.add.text(10, 10, "Score: 0", { font: "15px Arial", fill: "#B02FF0" });
+        var info = this.add.text(10, 10, "Score: 0", {
+            font: "15px Arial",
+            fill: "#B02FF0",
+        });
 
         //GameOver.disableBody(true, false);
         //  Grab a reference to the Game Scene
@@ -257,8 +264,8 @@ var config = {
     },
     scene: [GameScene, UIScene],
     scale: {
-        width: 16 * 43,
-        height: 16 * 20,
+        width: 16 * 65,
+        height: 16 * 30,
         zoom: 2,
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
