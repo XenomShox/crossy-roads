@@ -80,6 +80,8 @@ var GameScene = new Phaser.Class({
         this.kevin = this.physics.add
             .sprite(20, 20, "kevin", "down-idle-0.png")
             .setScale(scale);
+
+        const toBeDrawnOn = map.createLayer("toBeDrawnOn", tileset);
         // map.createLayer("Objects", tileset);
 
         roads.setCollisionByProperty({ collides: true });
