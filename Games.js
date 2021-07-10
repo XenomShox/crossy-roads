@@ -5,10 +5,13 @@ var GameScene = new Phaser.Class({
     },
     preload: function () {
         this.load.image("tiles", "assets/tileset/city_tiles.png");
+        this.load.image("car1", "assets/Cars/car1.png");
+        this.load.image("car2", "assets/Cars/car2.png");
+        this.load.image("car3", "assets/Cars/car3.png");
         this.load.image("car1V", "assets/Cars/car1V.png");
         this.load.image("car2V", "assets/Cars/car2V.png");
         this.load.image("car3V", "assets/Cars/car3V.png");
-        this.load.image("car4V", "assets/Cars/car4V.png");
+        this.load.image("car4V", "assets/Cars/car4V1.png");
         this.load.tilemapTiledJSON("city", "assets/maps/city_2.json");
 
         this.load.spritesheet("player", "assets/characters/kavi.png", {
@@ -28,7 +31,8 @@ var GameScene = new Phaser.Class({
         const map = this.make.tilemap({ key: "city" });
         const tileset = map.addTilesetImage("city", "tiles");
 
-        map.createLayer("ground", tileset);
+        const ground = map.createLayer("ground", tileset);
+        const roads = map.createLayer("roads", tileset);
         const Obstacles = map.createLayer("obstacles", tileset);
         //create cars
         let carsV = [
@@ -53,7 +57,10 @@ var GameScene = new Phaser.Class({
             .setScale(scale);
         // map.createLayer("Objects", tileset);
 
+        roads.setCollisionByProperty({ collides: true });
         Obstacles.setCollisionByProperty({ collides: true });
+        // debugDraw(Obstacles, this);
+        // debugDraw(roads, this);
 
         this.kevin.body.setSize(16, 8);
         this.kevin.body.offset.y = 40;
@@ -129,6 +136,7 @@ var GameScene = new Phaser.Class({
         this.kevin.play("kevin-idle-down");
         this.cursors = this.input.keyboard.createCursorKeys();
         this.physics.add.collider(this.kevin, Obstacles);
+        this.physics.add.collider(this.kevin, roads);
         // this.cameras.main.startFollow(this.kevin, true);
         this.kevin.setCollideWorldBounds(true);
 
@@ -292,3 +300,11 @@ var config = {
 var game = new Phaser.Game(config);
 
 var scale = 0.6;
+const debugDraw = (layer, scene) => {
+    const debugGraphics = scene.add.graphics().setAlpha(0.7);
+    layer.renderDebug(debugGraphics, {
+        tileColor: null,
+        collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+        faceColor: new Phaser.Display.Color(40, 39, 37, 255),
+    });
+};
