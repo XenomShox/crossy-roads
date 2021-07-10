@@ -187,9 +187,9 @@ var GameScene = new Phaser.Class({
             this.kevin,
             this.stars,
             function (player, star) {
-                this.events.emit("addScore");
                 star.disableBody(true, true);
                 this.stars.remove(star);
+                this.events.emit("addScore");
             },
             null,
             this
@@ -376,15 +376,21 @@ var UIScene = new Phaser.Class({
     Extends: Phaser.Scene,
     initialize: function GameScene() {
         Phaser.Scene.call(this, { key: "UIScene", active: true });
-        this.MaxScore = Number(window.localStorage.getItem("maxCrossRoad") || 0);
+        this.MaxScore = Number(window.localStorage.getItem("maxCrossRoad") || Infinity);
+        this.started = Date.now();
+        console.log(this.started);
     },
     preload: function () {},
     create: function () {
-        this.info = this.add.text(10, 10, "Score: 0", {
+        this.info = this.add.text(310, 10, "Score: 0", {
             font: "15px Arial",
             fill: "#B02FF0",
         });
-        console.log(this.game);
+        this.Maxinfo = this.add.text(600, 10, "Best Score: " + this.MaxScore, {
+            font: "15px Arial",
+            fill: "#B02FF0",
+        });
+
         //GameOver.disableBody(true, false);
         //  Grab a reference to the Game Scene
         var ourGame = this.scene.get("GameScene");
@@ -399,6 +405,7 @@ var UIScene = new Phaser.Class({
                 "Game Over",
                 { font: "50px Arial", fill: "#B02FF0" }
             );
+            $this.scene.pause("UIScene");
         });
         ourGame.events.on(
             "addScore",
@@ -410,14 +417,17 @@ var UIScene = new Phaser.Class({
                         "You won",
                         { font: "50px Arial", fill: "#B02FF0" }
                     );
+                    let max = (Date.now() - this.started) / 1000;
+                    if (max < $this.MaxScore) window.localStorage.setItem("maxCrossRoad", max);
                     $this.scene.pause("GameScene");
+                    $this.scene.pause("UIScene");
                 }
             },
             this
         );
     },
     update: function () {
-        this.info.setText("Time passed: " + this.game.time.totalElapsedSeconds());
+        this.info.setText("Time passed: " + (Date.now() - this.started) / 1000);
     },
 });
 var config = {
