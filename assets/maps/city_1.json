@@ -56,7 +56,7 @@
         {
          "columns":64,
          "firstgid":1,
-         "image":"C:\/Users\/Rcom\/Desktop\/CP_V1.1.0_nyknck\/CP_V1.0.4_nyknck\/CP_V1.0.4.png",
+         "image":"..\/tileset\/city_tiles.png",
          "imageheight":1024,
          "imagewidth":1024,
          "margin":0,
@@ -15324,6 +15324,11 @@
                  "id":1935,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"down"
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":true
@@ -15332,6 +15337,11 @@
                 {
                  "id":1936,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"down"
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",
@@ -15342,6 +15352,11 @@
                  "id":1937,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":false
@@ -15350,6 +15365,11 @@
                 {
                  "id":1938,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":""
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",
@@ -15360,6 +15380,11 @@
                  "id":1939,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"UP"
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":true
@@ -15368,6 +15393,11 @@
                 {
                  "id":1940,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"UP"
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",
@@ -15828,6 +15858,11 @@
                  "id":1999,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"down"
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":true
@@ -15836,6 +15871,11 @@
                 {
                  "id":2000,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"down"
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",
@@ -15846,6 +15886,11 @@
                  "id":2001,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":false
@@ -15854,6 +15899,11 @@
                 {
                  "id":2002,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":""
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",
@@ -15864,6 +15914,11 @@
                  "id":2003,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"UP"
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":true
@@ -15872,6 +15927,11 @@
                 {
                  "id":2004,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"UP"
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",
@@ -16332,6 +16392,11 @@
                  "id":2063,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"down"
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":true
@@ -16340,6 +16405,11 @@
                 {
                  "id":2064,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"down"
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",
@@ -16350,6 +16420,11 @@
                  "id":2065,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":false
@@ -16358,6 +16433,11 @@
                 {
                  "id":2066,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":""
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",
@@ -16368,6 +16448,11 @@
                  "id":2067,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"UP"
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":true
@@ -16376,6 +16461,11 @@
                 {
                  "id":2068,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"UP"
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",

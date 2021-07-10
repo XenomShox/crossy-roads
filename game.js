@@ -6,7 +6,7 @@ var config = {
         default: "arcade",
         arcade: {
             gravity: { y: 0 },
-            // debug: true,
+            debug: true,
         },
     },
     scene: {
@@ -29,6 +29,9 @@ var scale = 0.6;
 
 function preload() {
     this.load.image("tiles", "assets/tileset/city_tiles.png");
+    this.load.image("car1", "assets/Cars/car1.png");
+    this.load.image("car2", "assets/Cars/car2.png");
+    this.load.image("car3", "assets/Cars/car3.png");
     this.load.tilemapTiledJSON("city", "assets/maps/city_1.json");
 
     this.load.spritesheet("player", "assets/characters/kavi.png", {
@@ -51,9 +54,7 @@ function create() {
 
     map.createLayer("ground", tileset);
     const Obstacles = map.createLayer("Obstacles", tileset);
-    this.kevin = this.physics.add
-        .sprite(20, 20, "kevin", "down-idle-0.png")
-        .setScale(scale);
+    this.kevin = this.physics.add.sprite(20, 20, "kevin", "down-idle-0.png").setScale(scale);
     map.createLayer("Objects", tileset);
 
     Obstacles.setCollisionByProperty({ collides: true });
@@ -136,27 +137,39 @@ function create() {
     this.physics.add.collider(this.kevin, Obstacles);
     // this.cameras.main.startFollow(this.kevin, true);
     this.kevin.setCollideWorldBounds(true);
-    var FKey = this.input.keyboard.addKey("F");
 
-    FKey.on(
-        "down",
-        function () {
-            if (this.scale.isFullscreen) {
-                button.setFrame(0);
-                this.scale.stopFullscreen();
-            } else {
-                button.setFrame(1);
-                this.scale.startFullscreen();
-            }
+    this.physics.world.on("collisionstart", function (event, bodyA, bodyB) {
+        console.log("collision", event, bodyA, bodyB);
+    });
+    this.cars = this.physics.add.group();
+    for (let i = 0; i < 20; i++) {
+        this.cars.add(CreateCar(this, 100, (i % 5) * 50));
+    }
+    this.physics.add.overlap(
+        this.kevin,
+        this.cars,
+        function (player, car) {
+            console.log("Game Over");
         },
+        null,
         this
     );
 }
 
 function update() {
     if (!this.cursors || !this.kevin) return;
-
+    moveCars(this);
     moveKevin(this);
+}
+function CreateCar($this, x, y) {
+    let car = $this.physics.add
+        .sprite(x, y, "car" + (Math.floor(Math.random() * 2) + 1))
+        .setScale(0.5);
+    //console.log(car);
+    return car;
+}
+function moveCars($this) {
+    //$this.cars.forEach((car) => {});
 }
 
 const moveKevin = (scene) => {
