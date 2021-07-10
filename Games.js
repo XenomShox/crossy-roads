@@ -1,3 +1,4 @@
+var R;
 var GameScene = new Phaser.Class({
     Extends: Phaser.Scene,
     initialize: function GameScene() {
@@ -5,6 +6,7 @@ var GameScene = new Phaser.Class({
     },
     preload: function () {
         this.load.image("tiles", "assets/tileset/city_tiles.png");
+        this.load.image("score", "assets/score.png");
         this.load.image("car1", "assets/Cars/car1.png");
         this.load.image("car2", "assets/Cars/car2.png");
         this.load.image("car3", "assets/Cars/car3.png");
@@ -33,7 +35,73 @@ var GameScene = new Phaser.Class({
 
         map.createLayer("ground", tileset);
         const Obstacles = map.createLayer("obstacles", tileset);
+        R = this.roads = {
+            Up1: {
+                x: 197,
+                dx: 0,
+                d: 1,
+                speed: 1,
+                cars: [],
+            },
+            Up2: {
+                x: 837,
+                h: false,
+                dx: 20,
+                d: 1,
+                speed: 1,
+                cars: [],
+            },
+            Down1: {
+                x: 197,
+                h: false,
+                dx: 0,
+                d: -1,
+                speed: 1,
+                cars: [],
+            },
+            Down2: {
+                x: 837,
+                h: false,
+                dx: 20,
+                d: -1,
+                speed: 1,
+                cars: [],
+            },
+            Right1: {
+                y: 197,
+                h: true,
+                dy: 0,
+                d: 1,
+                speed: 1,
+                cars: [],
+            },
+            Right2: {
+                y: 837,
+                h: true,
+                dy: 20,
+                d: 1,
+                speed: 1,
+                cars: [],
+            },
+            Left1: {
+                y: 197,
+                h: true,
+                dy: 0,
+                d: -1,
+                speed: 1,
+                cars: [],
+            },
+            Left2: {
+                y: 837,
+                h: true,
+                dy: 20,
+                d: -1,
+                speed: 1,
+                cars: [],
+            },
+        };
         //create cars
+
         let carsV = [
                 this.CreateCar(197, 50, 1),
                 this.CreateCar(197, 200, 1),
@@ -74,9 +142,29 @@ var GameScene = new Phaser.Class({
             ];
 
         this.cars = this.physics.add.group();
-        this.cars.addMultiple(carsV);
+        this.cars.addMultiple(carsV); //[this.CreateCar("Up1")]); //
         this.cars.addMultiple(carsH);
 
+        this.stars = this.physics.add.group();
+        this.stars.addMultiple([
+            this.CreateStar(145, 100),
+            this.CreateStar(145, 150),
+            this.CreateStar(220, 180),
+            this.CreateStar(145, 150),
+            this.CreateStar(185, 330),
+            this.CreateStar(790, 150),
+            this.CreateStar(820, 100),
+            this.CreateStar(825, 330),
+            this.CreateStar(145, 430),
+            this.CreateStar(145, 150),
+            this.CreateStar(145, 150),
+            this.CreateStar(145, 150),
+            this.CreateStar(145, 150),
+            this.CreateStar(145, 150),
+            this.CreateStar(145, 150),
+            this.CreateStar(145, 150),
+            this.CreateStar(145, 150),
+        ]);
         this.kevin = this.physics.add.sprite(20, 20, "kevin", "down-idle-0.png").setScale(scale);
         // map.createLayer("Objects", tileset);
 
@@ -85,6 +173,38 @@ var GameScene = new Phaser.Class({
         this.kevin.body.setSize(16, 8);
         this.kevin.body.offset.y = 40;
 
+        this.CreateAnimations();
+        this.kevin.play("kevin-idle-down");
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.physics.add.collider(this.kevin, Obstacles);
+        // this.cameras.main.startFollow(this.kevin, true);
+        this.kevin.setCollideWorldBounds(true);
+
+        this.physics.add.overlap(
+            this.kevin,
+            this.stars,
+            function (player, star) {
+                this.events.emit("addScore");
+                star.disableBody(true, true);
+                this.stars.remove(star);
+            },
+            null,
+            this
+        );
+        this.physics.add.overlap(
+            this.kevin,
+            this.cars,
+            function (player, car) {
+                this.events.emit("Game_Over");
+            },
+            null,
+            this
+        );
+    },
+    CreateStar: function (x, y) {
+        return this.physics.add.sprite(x, y, "score");
+    },
+    CreateAnimations: function () {
         this.anims.create({
             key: "kevin-idle-down",
             frames: this.anims.generateFrameNames("kevin", {
@@ -152,26 +272,6 @@ var GameScene = new Phaser.Class({
             repeat: -1,
             frameRate: 8,
         });
-
-        this.kevin.play("kevin-idle-down");
-        this.cursors = this.input.keyboard.createCursorKeys();
-        this.physics.add.collider(this.kevin, Obstacles);
-        // this.cameras.main.startFollow(this.kevin, true);
-        this.kevin.setCollideWorldBounds(true);
-
-        this.physics.world.on("collisionstart", function (event, bodyA, bodyB) {
-            console.log("collision", event, bodyA, bodyB);
-        });
-
-        this.physics.add.overlap(
-            this.kevin,
-            this.cars,
-            function (player, car) {
-                this.events.emit("Game_Over");
-            },
-            null,
-            this
-        );
     },
     update: function () {
         if (!this.cursors || !this.kevin) return;
@@ -230,6 +330,21 @@ var GameScene = new Phaser.Class({
         }
     },
     CreateCar: function (x, y, d = 0, h = false) {
+        //console.log(this.roads[road]);
+        /*let car;
+        if (this.roads[road].h)
+            car = this.physics.add.sprite(
+                this.roads[road].cars.length * this.roads[road].dy,
+                this.roads[road].y,
+                "car" + (Math.floor(Math.random() * 3) + 1) + "V"
+            );
+        else
+            car = this.physics.add.sprite(
+                this.roads[road].x,
+                this.roads[road].cars.length * this.roads[road].dx,
+                "car" + (Math.floor(Math.random() * 3) + 1)
+            );*/
+        //car.setRotation(Math.PI * (this.roads[road].d > 0 ? 1 : 0)).setScale(0.5);
         let car = this.physics.add
             .sprite(x, y, "car" + (Math.floor(Math.random() * 3) + 1) + (h ? "V" : ""))
             .setRotation(Math.PI * d)
@@ -258,7 +373,6 @@ var UIScene = new Phaser.Class({
     Extends: Phaser.Scene,
     initialize: function GameScene() {
         Phaser.Scene.call(this, { key: "UIScene", active: true });
-        this.Score = 0;
         this.MaxScore = Number(window.localStorage.getItem("maxCrossRoad") || 0);
     },
     preload: function () {},
@@ -275,9 +389,7 @@ var UIScene = new Phaser.Class({
         //  Listen for events from it
         let $this = this;
         ourGame.events.on("Game_Over", function () {
-            console.log("Game OVer");
             $this.scene.pause("GameScene");
-            console.log("Game OVered");
             $this.GameOver = $this.add.text(
                 $this.cameras.main.centerX - 150,
                 $this.cameras.main.centerY - 30,
@@ -288,12 +400,21 @@ var UIScene = new Phaser.Class({
         ourGame.events.on(
             "addScore",
             function () {
-                this.score += 10;
-
-                info.setText("Score: " + this.score);
+                if (ourGame.stars.getLength() == 0) {
+                    $this.GameOver = $this.add.text(
+                        $this.cameras.main.centerX - 150,
+                        $this.cameras.main.centerY - 30,
+                        "You won",
+                        { font: "50px Arial", fill: "#B02FF0" }
+                    );
+                    $this.scene.pause("GameScene");
+                }
             },
             this
         );
+    },
+    update: function () {
+        info.setText("Time passed: " + this.game.time.totalElapsedSeconds());
     },
 });
 var config = {
