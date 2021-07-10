@@ -13,7 +13,6 @@ var GameScene = new Phaser.Class({
         this.load.image("car1V", "assets/Cars/car1V.png");
         this.load.image("car2V", "assets/Cars/car2V.png");
         this.load.image("car3V", "assets/Cars/car3V.png");
-
         this.load.tilemapTiledJSON("city", "assets/maps/city_2.json");
 
         this.load.spritesheet("player", "assets/characters/kavi.png", {
@@ -33,7 +32,8 @@ var GameScene = new Phaser.Class({
         const map = this.make.tilemap({ key: "city" });
         const tileset = map.addTilesetImage("city", "tiles");
 
-        map.createLayer("ground", tileset);
+        const ground = map.createLayer("ground", tileset);
+        const roads = map.createLayer("roads", tileset);
         const Obstacles = map.createLayer("obstacles", tileset);
         R = this.roads = {
             Up1: {
@@ -168,7 +168,10 @@ var GameScene = new Phaser.Class({
         this.kevin = this.physics.add.sprite(20, 20, "kevin", "down-idle-0.png").setScale(scale);
         // map.createLayer("Objects", tileset);
 
+        roads.setCollisionByProperty({ collides: true });
         Obstacles.setCollisionByProperty({ collides: true });
+        // debugDraw(Obstacles, this);
+        // debugDraw(roads, this);
 
         this.kevin.body.setSize(16, 8);
         this.kevin.body.offset.y = 40;
@@ -377,11 +380,11 @@ var UIScene = new Phaser.Class({
     },
     preload: function () {},
     create: function () {
-        var info = this.add.text(10, 10, "Score: 0", {
+        this.info = this.add.text(10, 10, "Score: 0", {
             font: "15px Arial",
             fill: "#B02FF0",
         });
-
+        console.log(this.game);
         //GameOver.disableBody(true, false);
         //  Grab a reference to the Game Scene
         var ourGame = this.scene.get("GameScene");
@@ -414,7 +417,7 @@ var UIScene = new Phaser.Class({
         );
     },
     update: function () {
-        info.setText("Time passed: " + this.game.time.totalElapsedSeconds());
+        this.info.setText("Time passed: " + this.game.time.totalElapsedSeconds());
     },
 });
 var config = {
@@ -441,3 +444,11 @@ var config = {
 var game = new Phaser.Game(config);
 
 var scale = 0.6;
+const debugDraw = (layer, scene) => {
+    const debugGraphics = scene.add.graphics().setAlpha(0.7);
+    layer.renderDebug(debugGraphics, {
+        tileColor: null,
+        collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+        faceColor: new Phaser.Display.Color(40, 39, 37, 255),
+    });
+};
