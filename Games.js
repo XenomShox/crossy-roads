@@ -8,6 +8,10 @@ var GameScene = new Phaser.Class({
         this.load.image("car1", "assets/Cars/car1.png");
         this.load.image("car2", "assets/Cars/car2.png");
         this.load.image("car3", "assets/Cars/car3.png");
+        this.load.image("car1V", "assets/Cars/car1V.png");
+        this.load.image("car2V", "assets/Cars/car2V.png");
+        this.load.image("car3V", "assets/Cars/car3V.png");
+        this.load.image("car4V", "assets/Cars/car4V.png");
         this.load.tilemapTiledJSON("city", "assets/maps/city_1.json");
 
         this.load.spritesheet("player", "assets/characters/kavi.png", {
@@ -28,17 +32,19 @@ var GameScene = new Phaser.Class({
         const tileset = map.addTilesetImage("city", "tiles");
 
         map.createLayer("ground", tileset);
-        const Obstacles = map.createLayer("Obstacles", tileset);
         //create cars
-        let cars = [
-            this.CreateCarV(76, 50, 1),
-            this.CreateCarV(100, 50, 1),
-            this.CreateCarV(142, 50),
-            this.CreateCarV(164, 50),
-        ];
-        this.cars = this.physics.add.group();
-        this.cars.addMultiple(cars);
+        let carsV = [
+                this.CreateCar(76, 50, 1),
+                this.CreateCar(100, 50, 1),
+                this.CreateCar(142, 50),
+                this.CreateCar(164, 50),
+            ],
+            carsH = [this.CreateCar(142, 50, 0, true)];
 
+        this.cars = this.physics.add.group();
+        this.cars.addMultiple(carsV);
+
+        const Obstacles = map.createLayer("Obstacles", tileset);
         this.kevin = this.physics.add.sprite(20, 20, "kevin", "down-idle-0.png").setScale(scale);
         map.createLayer("Objects", tileset);
 
@@ -191,17 +197,25 @@ var GameScene = new Phaser.Class({
             this.kevin.setVelocityY(vY);
         }
     },
-    CreateCarV: function (x, y, d = 0) {
+    CreateCar: function (x, y, d = 0, h = false) {
         let car = this.physics.add
-            .sprite(x, y, "car" + (Math.floor(Math.random() * 2) + 1))
+            .sprite(
+                x,
+                y,
+                "car" + (Math.floor(Math.random() * 3) + 1 + (h ? 1 : 0)) + (h ? "V" : "")
+            )
             .setRotation(Math.PI * d)
             .setScale(0.5);
+        car.Horizantal = h;
+        car.Direction = d == 0 ? 1 : -1;
         //console.log(car);
         return car;
     },
     moveCars: function () {
         this.cars.getChildren().forEach((car) => {
-            car.setVelocityY(40); //* car.Direction
+            console.log(car.Horizantal);
+            if (car.Horizantal) car.setVelocityX(40 * car.Direction);
+            else car.setVelocityY(40 * car.Direction);
         });
     },
 });
