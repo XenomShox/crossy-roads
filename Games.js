@@ -39,10 +39,16 @@ var GameScene = new Phaser.Class({
                 this.CreateCar(142, 50),
                 this.CreateCar(164, 50),
             ],
-            carsH = [this.CreateCar(142, 50, 0, true)];
+            carsH = [
+                this.CreateCar(142, 50, 1, true),
+                this.CreateCar(142, 150, 1, true),
+                this.CreateCar(142, 250, 0, true),
+                this.CreateCar(542, 250, 0, true),
+            ];
 
         this.cars = this.physics.add.group();
         this.cars.addMultiple(carsV);
+        this.cars.addMultiple(carsH);
 
         const Obstacles = map.createLayer("Obstacles", tileset);
         this.kevin = this.physics.add.sprite(20, 20, "kevin", "down-idle-0.png").setScale(scale);
@@ -199,11 +205,7 @@ var GameScene = new Phaser.Class({
     },
     CreateCar: function (x, y, d = 0, h = false) {
         let car = this.physics.add
-            .sprite(
-                x,
-                y,
-                "car" + (Math.floor(Math.random() * 3) + 1 + (h ? 1 : 0)) + (h ? "V" : "")
-            )
+            .sprite(x, y, "car" + (Math.floor(Math.random() * 3) + 1) + (h ? "V" : ""))
             .setRotation(Math.PI * d)
             .setScale(0.5);
         car.Horizantal = h;
@@ -213,9 +215,9 @@ var GameScene = new Phaser.Class({
     },
     moveCars: function () {
         this.cars.getChildren().forEach((car) => {
-            console.log(car.Horizantal);
-            if (car.Horizantal) car.setVelocityX(40 * car.Direction);
-            else car.setVelocityY(40 * car.Direction);
+            if (car.Horizantal) {
+                car.setVelocityX(40 * car.Direction);
+            } else car.setVelocityY(40 * car.Direction);
         });
     },
 });
