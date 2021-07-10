@@ -5,10 +5,13 @@ var GameScene = new Phaser.Class({
     },
     preload: function () {
         this.load.image("tiles", "assets/tileset/city_tiles.png");
+        this.load.image("car1", "assets/Cars/car1.png");
+        this.load.image("car2", "assets/Cars/car2.png");
+        this.load.image("car3", "assets/Cars/car3.png");
         this.load.image("car1V", "assets/Cars/car1V.png");
         this.load.image("car2V", "assets/Cars/car2V.png");
         this.load.image("car3V", "assets/Cars/car3V.png");
-        this.load.image("car4V", "assets/Cars/car4V.png");
+
         this.load.tilemapTiledJSON("city", "assets/maps/city_2.json");
 
         this.load.spritesheet("player", "assets/characters/kavi.png", {
@@ -32,25 +35,49 @@ var GameScene = new Phaser.Class({
         const Obstacles = map.createLayer("obstacles", tileset);
         //create cars
         let carsV = [
-                this.CreateCar(76, 50, 1),
-                this.CreateCar(100, 50, 1),
-                this.CreateCar(142, 50),
-                this.CreateCar(164, 50),
+                this.CreateCar(197, 50, 1),
+                this.CreateCar(197, 200, 1),
+                this.CreateCar(197, 350, 1),
+                this.CreateCar(171, 50),
+                this.CreateCar(171, 200),
+                this.CreateCar(171, 350),
+                // right
+                this.CreateCar(837, 150, 1),
+                this.CreateCar(837, 300, 1),
+                this.CreateCar(837, 450, 1),
+                this.CreateCar(811, 150),
+                this.CreateCar(811, 300),
+                this.CreateCar(811, 450),
             ],
             carsH = [
-                this.CreateCar(142, 50, 1, true),
-                //this.CreateCar(142, 150, 1, true),
-                this.CreateCar(142, 250, 0, true),
-                //this.CreateCar(542, 250, 0, true),
+                this.CreateCar(0, 124, 1, true),
+                this.CreateCar(200, 124, 1, true),
+                this.CreateCar(400, 124, 1, true),
+                this.CreateCar(600, 124, 1, true),
+                this.CreateCar(800, 124, 1, true),
+                this.CreateCar(0, 149, 0, true),
+                this.CreateCar(200, 149, 0, true),
+                this.CreateCar(400, 149, 0, true),
+                this.CreateCar(600, 149, 0, true),
+                this.CreateCar(800, 149, 0, true),
+                // d0wn
+                this.CreateCar(0, 364, 1, true),
+                this.CreateCar(200, 364, 1, true),
+                this.CreateCar(400, 364, 1, true),
+                this.CreateCar(600, 364, 1, true),
+                this.CreateCar(800, 364, 1, true),
+                this.CreateCar(0, 389, 0, true),
+                this.CreateCar(200, 389, 0, true),
+                this.CreateCar(400, 389, 0, true),
+                this.CreateCar(600, 389, 0, true),
+                this.CreateCar(800, 389, 0, true),
             ];
 
         this.cars = this.physics.add.group();
         this.cars.addMultiple(carsV);
         this.cars.addMultiple(carsH);
 
-        this.kevin = this.physics.add
-            .sprite(20, 20, "kevin", "down-idle-0.png")
-            .setScale(scale);
+        this.kevin = this.physics.add.sprite(20, 20, "kevin", "down-idle-0.png").setScale(scale);
         // map.createLayer("Objects", tileset);
 
         Obstacles.setCollisionByProperty({ collides: true });
@@ -204,11 +231,7 @@ var GameScene = new Phaser.Class({
     },
     CreateCar: function (x, y, d = 0, h = false) {
         let car = this.physics.add
-            .sprite(
-                x,
-                y,
-                "car" + (Math.floor(Math.random() * 3) + 1) + (h ? "V" : "")
-            )
+            .sprite(x, y, "car" + (Math.floor(Math.random() * 3) + 1) + (h ? "V" : ""))
             .setRotation(Math.PI * d)
             .setScale(0.5);
         car.Horizantal = h;
@@ -220,11 +243,14 @@ var GameScene = new Phaser.Class({
         this.cars.getChildren().forEach((car) => {
             if (car.Horizantal) {
                 car.setVelocityX(40 * car.Direction);
-                console.log();
                 if (car.x > this.scale.width && car.Direction > 0) car.x = -car.width / 2;
                 if (car.x + car.width / 2 < 0 && car.Direction < 0) car.x = this.scale.width;
                 //if(this.scale.height);
-            } else car.setVelocityY(40 * car.Direction);
+            } else {
+                car.setVelocityY(40 * car.Direction);
+                if (car.y > this.scale.height && car.Direction > 0) car.y = -car.height / 2;
+                if (car.y + car.height / 2 < 0 && car.Direction < 0) car.y = this.scale.height;
+            }
         });
     },
 });
@@ -233,9 +259,7 @@ var UIScene = new Phaser.Class({
     initialize: function GameScene() {
         Phaser.Scene.call(this, { key: "UIScene", active: true });
         this.Score = 0;
-        this.MaxScore = Number(
-            window.localStorage.getItem("maxCrossRoad") || 0
-        );
+        this.MaxScore = Number(window.localStorage.getItem("maxCrossRoad") || 0);
     },
     preload: function () {},
     create: function () {
