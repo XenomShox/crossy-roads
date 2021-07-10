@@ -41,9 +41,9 @@ var GameScene = new Phaser.Class({
             ],
             carsH = [
                 this.CreateCar(142, 50, 1, true),
-                this.CreateCar(142, 150, 1, true),
+                //this.CreateCar(142, 150, 1, true),
                 this.CreateCar(142, 250, 0, true),
-                this.CreateCar(542, 250, 0, true),
+                //this.CreateCar(542, 250, 0, true),
             ];
 
         this.cars = this.physics.add.group();
@@ -217,6 +217,10 @@ var GameScene = new Phaser.Class({
         this.cars.getChildren().forEach((car) => {
             if (car.Horizantal) {
                 car.setVelocityX(40 * car.Direction);
+                console.log();
+                if (car.x > this.scale.width && car.Direction > 0) car.x = -car.width / 2;
+                if (car.x + car.width / 2 < 0 && car.Direction < 0) car.x = this.scale.width;
+                //if(this.scale.height);
             } else car.setVelocityY(40 * car.Direction);
         });
     },
